@@ -23,10 +23,10 @@
          point="org.eclipse.ui.handlers">
       <handler
             commandId="SmartCNP.commands.smartCopyCommand"
-            class="smartcnp.handlers.CopyHandler">
+            class="com.smartcnp.plugin.handlers.CopyHandler">
       </handler>
       <handler
-            class="smartcnp.handlers.PasteHandler"
+            class="com.smartcnp.plugin.handlers.PasteHandler"
             commandId="SmartCNP.commands.smartPasteCommand">
       </handler>
    </extension>
