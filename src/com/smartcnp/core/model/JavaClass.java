@@ -23,7 +23,7 @@ import java.util.List;
  * @author yihua.huang
  * 
  */
-public interface JavaClass {
+public interface JavaClass extends SmartModel {
 
 	public List<JavaField> getFields();
 
@@ -33,7 +33,7 @@ public interface JavaClass {
 
 	public String getName();
 
-	public String getCanoicalName();
+	public String getCanonicalName();
 
 	public String getPackage();
 

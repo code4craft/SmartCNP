@@ -15,7 +15,11 @@
  */
 package com.smartcnp.eclipse;
 
+import org.eclipse.jdt.core.IField;
+import org.eclipse.jdt.core.JavaModelException;
+
 import com.smartcnp.core.model.JavaField;
+import com.smartcnp.eclipse.util.EclipseConvertor;
 
 /**
  * TODO Comment of JavaFieldAdapter
@@ -25,6 +29,18 @@ import com.smartcnp.core.model.JavaField;
  */
 public class JavaFieldAdaptor implements JavaField {
 
+	private final IField iField;
+
+	private String type;
+
+	/**
+	 * @param iField
+	 */
+	public JavaFieldAdaptor(IField iField) {
+		super();
+		this.iField = iField;
+	}
+
 	/**
 	 * (non-Jsdoc)
 	 * 
@@ -32,7 +48,7 @@ public class JavaFieldAdaptor implements JavaField {
 	 */
 	@Override
 	public String getName() {
-		return null;
+		return iField.getElementName();
 	}
 
 	/**
@@ -42,8 +58,24 @@ public class JavaFieldAdaptor implements JavaField {
 	 */
 	@Override
 	public String getType() {
-		// TODO Auto-generated method stub
-		return null;
+		if (type == null) {
+			try {
+				type = EclipseConvertor.convertType(iField.getTypeSignature());
+			} catch (JavaModelException e) {
+				e.printStackTrace();
+			}
+		}
+		return type;
+	}
+
+	/**
+	 * (non-Jsdoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "JavaFieldAdaptor [iField=" + iField + ", type=" + type + "]";
 	}
 
 }

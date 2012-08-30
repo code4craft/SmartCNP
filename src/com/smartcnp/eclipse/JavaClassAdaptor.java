@@ -15,6 +15,7 @@
  */
 package com.smartcnp.eclipse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.smartcnp.core.model.JavaClass;
@@ -23,59 +24,108 @@ import com.smartcnp.core.model.JavaMethod;
 
 /**
  * TODO Comment of JavaClassImpl
+ * 
  * @author yihua.huang
- *
+ * 
  */
 public class JavaClassAdaptor implements JavaClass {
 
+	private final String canoicalName;
+
+	private String name;
+
+	private String packageName;
+
+	private List<JavaField> fields;
+	private List<JavaMethod> methods;
+
 	/**
-	 * (non-Jsdoc)
-	 * @see com.smartcnp.core.model.JavaClass#getCanoicalName()
+	 * @param canoicalName
 	 */
-	@Override
-	public String getCanoicalName() {
-		// TODO Auto-generated method stub
-		return null;
+	public JavaClassAdaptor(String canoicalName) {
+		super();
+		this.canoicalName = canoicalName;
+		fields = new ArrayList<JavaField>();
+		methods = new ArrayList<JavaMethod>();
 	}
 
 	/**
 	 * (non-Jsdoc)
+	 * 
+	 * @see com.smartcnp.core.model.JavaClass#getCanonicalName()
+	 */
+	@Override
+	public String getCanonicalName() {
+		return canoicalName;
+	}
+
+	/**
+	 * (non-Jsdoc)
+	 * 
 	 * @see com.smartcnp.core.model.JavaClass#getFields()
 	 */
 	@Override
 	public List<JavaField> getFields() {
-		// TODO Auto-generated method stub
-		return null;
+		return fields;
 	}
 
 	/**
 	 * (non-Jsdoc)
+	 * 
 	 * @see com.smartcnp.core.model.JavaClass#getMethods()
 	 */
 	@Override
 	public List<JavaMethod> getMethods() {
-		// TODO Auto-generated method stub
-		return null;
+		return methods;
 	}
 
 	/**
 	 * (non-Jsdoc)
+	 * 
 	 * @see com.smartcnp.core.model.JavaClass#getName()
 	 */
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		if (canoicalName == null) {
+			return null;
+		}
+		if (name == null) {
+			int indexForLastPoint = canoicalName.lastIndexOf(".");
+			if (indexForLastPoint != -1) {
+				name = canoicalName.substring(indexForLastPoint + 1);
+			}
+		}
+		return name;
 	}
 
 	/**
 	 * (non-Jsdoc)
+	 * 
 	 * @see com.smartcnp.core.model.JavaClass#getPackage()
 	 */
 	@Override
 	public String getPackage() {
-		// TODO Auto-generated method stub
-		return null;
+		if (canoicalName == null) {
+			return null;
+		}
+		if (packageName == null) {
+			int indexForLastPoint = canoicalName.lastIndexOf(".");
+			if (indexForLastPoint != -1) {
+				packageName = canoicalName.substring(0, indexForLastPoint);
+			}
+		}
+		return packageName;
+	}
+
+	/**
+	 * (non-Jsdoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "JavaClassAdaptor [canoicalName=" + canoicalName + ", fields=" + fields + ", methods=" + methods
+				+ ", name=" + name + ", packageName=" + packageName + "]";
 	}
 
 }

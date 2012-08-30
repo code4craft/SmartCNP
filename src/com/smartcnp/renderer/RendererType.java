@@ -1,7 +1,7 @@
 /**
  * Project: SmartCNP
  * 
- * File Created at 2012-8-29
+ * File Created at 2012-8-30
  * $Id$
  * 
  * Copyright 2010 dianping.com.
@@ -13,17 +13,16 @@
  * accordance with the terms of the license agreement you entered into
  * with dianping.com.
  */
-package com.smartcnp.core.model;
+package com.smartcnp.renderer;
 
 /**
- * TODO Comment of JavaObject
+ * TODO Comment of RenderType
  * 
  * @author yihua.huang
  * 
  */
-public interface JavaObject extends SmartModel {
+public enum RendererType {
 
-	public String getType();
+	IBatis, Spring, SQLCreate, TestCase;
 
-	public String getName();
 }

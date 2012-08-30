@@ -1,18 +1,24 @@
 package com.smartcnp.plugin.handlers;
 
+import java.util.List;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jdt.core.ICompilationUnit;
-import org.eclipse.jdt.core.IField;
-import org.eclipse.jdt.core.IMethod;
-import org.eclipse.jdt.core.IType;
-import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
+
+import com.smartcnp.core.model.JavaClass;
+import com.smartcnp.core.parser.ClassParser;
+import com.smartcnp.eclipse.EclipseClassParser;
+import com.smartcnp.renderer.Renderer;
+import com.smartcnp.renderer.RendererResult;
+import com.smartcnp.renderer.RendererType;
+import com.smartcnp.renderer.freemarker.FreeMarkerRenderer;
 
 /**
  * Our sample handler extends AbstractHandler, an IHandler base class.
@@ -40,24 +46,14 @@ public class CopyHandler extends AbstractHandler {
 
 		if (selected instanceof ICompilationUnit) {
 			ICompilationUnit icu = (ICompilationUnit) selected;
-			try {
-				IType[] allTypes = icu.getAllTypes();
-				IType iType = allTypes[0];
-				IField[] fields = iType.getFields();
-				IMethod[] methods = iType.getMethods();
-
-				for (int i = 0; i < fields.length; i++) {
-					System.out.println(fields[i].getElementName() + " type " + fields[i].getTypeSignature()
-							+ fields[i].getElementType());
-				}
-				for (int i = 0; i < methods.length; i++) {
-					System.out.println(toString(methods[i].getParameterNames()) + ""
-							+ toString(methods[i].getParameterTypes()));
-				}
-			} catch (JavaModelException e) {
-				e.printStackTrace();
+			ClassParser classParser = new EclipseClassParser();
+			JavaClass javaClass = classParser.parse(icu);
+			Renderer renderer = new FreeMarkerRenderer();
+			List<RendererResult> rendererResults = renderer.render(javaClass, RendererType.IBatis);
+			for (RendererResult rendererResult : rendererResults) {
+				System.out.println(rendererResult);
 			}
-			MessageDialog.openInformation(window.getShell(), "DConfig1", "Hello, Eclipse world" + icu.getElementName());
+			MessageDialog.openInformation(window.getShell(), javaClass.getCanonicalName(), javaClass.toString());
 		}
 		return null;
 	}

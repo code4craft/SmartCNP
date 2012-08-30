@@ -1,7 +1,7 @@
 /**
  * Project: SmartCNP
  * 
- * File Created at 2012-8-29
+ * File Created at 2012-8-30
  * $Id$
  * 
  * Copyright 2010 dianping.com.
@@ -16,14 +16,10 @@
 package com.smartcnp.core.model;
 
 /**
- * TODO Comment of JavaObject
- * 
+ * TODO Comment of SmartModel
  * @author yihua.huang
- * 
+ *
  */
-public interface JavaObject extends SmartModel {
+public interface SmartModel {
 
-	public String getType();
-
-	public String getName();
 }

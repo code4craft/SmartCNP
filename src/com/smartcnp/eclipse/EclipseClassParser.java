@@ -15,6 +15,10 @@
  */
 package com.smartcnp.eclipse;
 
+import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IField;
+import org.eclipse.jdt.core.IType;
+
 import com.smartcnp.core.model.JavaClass;
 import com.smartcnp.core.parser.ClassParser;
 
@@ -33,7 +37,20 @@ public class EclipseClassParser implements ClassParser {
 	 */
 	@Override
 	public JavaClass parse(Object object) {
-		if ()
+		if (object instanceof ICompilationUnit) {
+			ICompilationUnit compilationUnit = (ICompilationUnit) object;
+			try {
+				IType[] allTypes = compilationUnit.getAllTypes();
+				IType iType = allTypes[0];
+				JavaClassAdaptor javaClass = new JavaClassAdaptor(iType.getFullyQualifiedName());
+				for (IField iField : iType.getFields()) {
+					javaClass.getFields().add(new JavaFieldAdaptor(iField));
+				}
+				return javaClass;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		return null;
 	}
 }

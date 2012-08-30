@@ -1,7 +1,7 @@
 /**
  * Project: SmartCNP
  * 
- * File Created at 2012-8-29
+ * File Created at 2012-8-30
  * $Id$
  * 
  * Copyright 2010 dianping.com.
@@ -13,17 +13,28 @@
  * accordance with the terms of the license agreement you entered into
  * with dianping.com.
  */
-package com.smartcnp.core.model;
+package com.smartcnp.renderer;
 
 /**
- * TODO Comment of JavaObject
+ * TODO Comment of RendererResult
  * 
  * @author yihua.huang
  * 
  */
-public interface JavaObject extends SmartModel {
+public interface RendererResult {
 
-	public String getType();
+	/**
+	 * 模板的描述信息等
+	 * 
+	 * @return
+	 */
+	public String getMeta();
 
-	public String getName();
+	/**
+	 * 模板的输出结果
+	 * 
+	 * @return
+	 */
+	public String getResult();
+
 }

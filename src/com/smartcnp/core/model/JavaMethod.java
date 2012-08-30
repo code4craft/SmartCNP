@@ -23,7 +23,7 @@ import java.util.List;
  * @author yihua.huang
  * 
  */
-public interface JavaMethod {
+public interface JavaMethod extends SmartModel {
 
 	public String getName();
 

@@ -13,7 +13,7 @@
  * accordance with the terms of the license agreement you entered into
  * with dianping.com.
  */
-package com.smartcnp.eclipse;
+package com.smartcnp.eclipse.util;
 
 import java.util.HashMap;
 import java.util.Map;
