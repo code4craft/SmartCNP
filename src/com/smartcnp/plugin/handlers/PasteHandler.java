@@ -41,6 +41,7 @@ public class PasteHandler extends AbstractHandler {
 			IFile file = folder.getFile("xx.xml");
 			try {
 				file.create(new ByteArrayInputStream("".getBytes()), false, null);
+				file.
 			} catch (CoreException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
