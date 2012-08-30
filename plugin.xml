@@ -68,24 +68,26 @@
             </command>
          </menu>
       </menuContribution>
+      <!--
       <menuContribution
             locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
          <toolbar
                id="SmartCNP.menus.smartPasteToolbar">
             <command
                   commandId="SmartCNP.commands.smartCopyCommand"
-                  icon="icons/dp.png"
+                  icon="icons/dp.ico"
                   tooltip="smart copy"
                   id="SmartCNP.toolbars.smartCopyCommand">
             </command>
             <command
                   commandId="SmartCNP.commands.smartPasteCommand"
-                  icon="icons/dp.png"
+                  icon="icons/dp.ico"
                   id="SmartCNP.toolbars.smartPasteCommand"
                   tooltip="smart paste">
             </command>
          </toolbar>
       </menuContribution>
+      -->
    </extension>
 
 </plugin>

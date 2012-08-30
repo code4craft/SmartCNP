@@ -10,4 +10,22 @@
     </#list>
     </resultMap>
     
+    <select id="load" resultMap="result" parameterClass="map">
+		<![CDATA[
+			SELECT <#list model.fields as field>${format(field.name,'javaClass')}</#list>
+			FROM AC_${format(model.name,'javaClass')}
+			WHERE =##
+		]]>
+	</select>
+	
+	<insert id="add" parameterClass="map">
+		<![CDATA[
+	    	INSERT INTO AC_${format(model.name,'javaClass')} 
+	    		(<#list model.fields as field>${format(field.name,'javaClass')},
+	    		</#list>) 
+	   		VALUES 
+	   			(<#list model.fields as field>#${field.name}#,
+	    		</#list>)
+		]]>
+    </insert>
 </sqlMap>

@@ -30,6 +30,7 @@ import com.smartcnp.renderer.RendererResult;
 import com.smartcnp.renderer.RendererResultImpl;
 import com.smartcnp.renderer.RendererType;
 import com.smartcnp.renderer.freemarker.methods.FormatNameMethodModel;
+import com.smartcnp.util.StringUtil;
 
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
@@ -68,7 +69,7 @@ public class FreeMarkerRenderer implements Renderer {
 				StringWriter writer = new StringWriter();
 				temp.process(root, writer);
 				String result = writer.toString();
-				list.add(new RendererResultImpl(temp.toString(), result));
+				list.add(new RendererResultImpl(StringUtil.capFirst(javaClass.getName()) + ".xml", result));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

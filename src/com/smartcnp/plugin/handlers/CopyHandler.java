@@ -15,6 +15,7 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import com.smartcnp.core.model.JavaClass;
 import com.smartcnp.core.parser.ClassParser;
 import com.smartcnp.eclipse.EclipseClassParser;
+import com.smartcnp.plugin.storage.ClipboardUtil;
 import com.smartcnp.renderer.Renderer;
 import com.smartcnp.renderer.RendererResult;
 import com.smartcnp.renderer.RendererType;
@@ -39,31 +40,19 @@ public class CopyHandler extends AbstractHandler {
 	 */
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
-		MessageDialog.openInformation(window.getShell(), "SmartCNP", "Start to copy");
 		IStructuredSelection structured = (IStructuredSelection) PlatformUI.getWorkbench().getActiveWorkbenchWindow()
 				.getSelectionService().getSelection("org.eclipse.jdt.ui.PackageExplorer");
 		Object selected = structured.getFirstElement();
-
 		if (selected instanceof ICompilationUnit) {
 			ICompilationUnit icu = (ICompilationUnit) selected;
 			ClassParser classParser = new EclipseClassParser();
 			JavaClass javaClass = classParser.parse(icu);
 			Renderer renderer = new FreeMarkerRenderer();
 			List<RendererResult> rendererResults = renderer.render(javaClass, RendererType.IBatis);
-			for (RendererResult rendererResult : rendererResults) {
-				System.out.println(rendererResult);
-			}
-			MessageDialog.openInformation(window.getShell(), javaClass.getCanonicalName(), javaClass.toString());
+			RendererResult rendererResult = rendererResults.get(0);
+			ClipboardUtil.copyTo(rendererResult.getResult());
+			MessageDialog.openInformation(window.getShell(), "SmartCNP", "Copy " + javaClass.getName() + " Success");
 		}
 		return null;
-	}
-
-	private <T> String toString(T[] ts) {
-		StringBuilder sb = new StringBuilder("[");
-		for (T t : ts) {
-			sb.append(t + ",");
-		}
-		sb.append("]");
-		return sb.toString();
 	}
 }
